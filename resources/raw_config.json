@@ -1,0 +1,12 @@
+{
+  "bucket_name": "lyfecycle-management-bucket",
+  "days_to_glacier": 12,
+  "days_to_deep_archive": 18,
+  "days_to_expiration": 21,
+  "paths": [
+    "data/path"
+  ],
+  "paths_to_ignore": [
+    "test"
+  ]
+}
