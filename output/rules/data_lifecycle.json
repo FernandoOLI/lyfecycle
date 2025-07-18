@@ -1,18 +1,18 @@
 {
   "Rules": [
     {
-      "ID": "Default-Transition-Policy-ExcludeDeltaLog",
+      "ID": "Default-Transition-Policy",
       "Filter": {
-          "Prefix": "data"
-        },
+        "Prefix": "data"
+      },
       "Status": "Enabled",
       "Transitions": [
         {
-          "Days": 120,
+          "Days": 90,
           "StorageClass": "GLACIER"
         },
         {
-          "Days": 210,
+          "Days": 180,
           "StorageClass": "DEEP_ARCHIVE"
         }
       ],
