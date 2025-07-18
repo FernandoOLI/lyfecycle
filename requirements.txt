@@ -1,1 +1,1 @@
-# No external dependencies – using only Python Standard Library
+pytest
