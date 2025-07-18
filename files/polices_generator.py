@@ -40,15 +40,15 @@ def polices_generator(file_name):
 def ignore_delta_log(data):
     rules = []
 
-    for path in data["paths"]:
-        last_folder = path.strip("/").split("/")[-1]
-        rules.append({
-            "ID": f"ExcludeDeltaLog-{last_folder}",
-            "Filter": {
-                "Prefix": f"{path.rstrip('/')}/_delta_log/"
-            },
-            "Status": "Enabled"
-        })
+    for path in filter(None, data["paths"]):
+            last_folder = path.strip("/").split("/")[-1]
+            rules.append({
+                "ID": f"ExcludeDeltaLog-{last_folder}",
+                "Filter": {
+                    "Prefix": f"{path.rstrip('/')}/_delta_log/"
+                },
+                "Status": "Enabled"
+            })
 
     return rules
 
