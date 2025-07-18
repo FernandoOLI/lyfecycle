@@ -44,7 +44,7 @@ jobs:
         run: |
           pytest tests/
 
-      - name: Execute main code (generates .sh file)
+      - name: Execute main code
         run: |
           python main.py
 
