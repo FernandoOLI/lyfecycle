@@ -1,0 +1,42 @@
+name: CI/CD AWS LifeCycle
+
+on:
+  push:
+    paths:
+      - 'lyfecycle/**'
+      - '.github/workflows/lifecycle.yml'
+    branches: [main]
+
+jobs:
+  build-test-upload:
+    name: AWS LifeCycle
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.9
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: |
+          pytest tests/
+
+      - name: Execute main code
+        run: |
+          python main.py
+
+      - name: Run generated shell script
+        run: |
+          chmod +x output/bash/lifecycle.sh
+          ./output/bash/lifecycle.sh
