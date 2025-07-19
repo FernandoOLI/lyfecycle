@@ -13,14 +13,10 @@ def test_bash_generate(mock_file, mock_open_config):
 
     handle = mock_file()
 
-    expected_lines = [
-        "\n",
-        "echo Applying lifecycle to bucket: my-bucket \n\n",
-        "aws s3api put-bucket-lifecycle-configuration \\\n",
-        "--bucket my-bucket \\\n",
-        "--lifecycle-configuration file://../rules/test_lifecycle.json\n"
-    ]
+    expected_lines = ['\n', 'echo Applying lifecycle to bucket: my-bucket \n\n',
+                      "SCRIPT_DIR='$(cd '$(dirname '${BASH_SOURCE[0]}')' && pwd)' \n\n",
+                      "JSON_FILE='$SCRIPT_DIR/../rules/test_lifecycle.json'\n",
+                      'aws s3api put-bucket-lifecycle-configuration \\\n', '--bucket my-bucket \\\n',
+                      '--lifecycle-configuration file://$JSON_FILE\n']
 
     handle.writelines.assert_called_once_with(expected_lines)
-
-
