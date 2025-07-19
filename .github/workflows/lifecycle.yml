@@ -3,7 +3,7 @@ name: CI/CD AWS LifeCycle
 on:
   push:
     paths:
-      - 'lyfecycle/**'
+      - '**'
       - '.github/workflows/lifecycle.yml'
     branches: [main]
 
