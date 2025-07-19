@@ -47,7 +47,10 @@ def ignore_delta_log(data):
                 "Filter": {
                     "Prefix": f"{path.rstrip('/')}/_delta_log/"
                 },
-                "Status": "Enabled"
+                "Status": "Enabled",
+                "Expiration": {
+                    "Days": 9999
+                }
             })
 
     return rules
