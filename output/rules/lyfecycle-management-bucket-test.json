@@ -1,19 +1,9 @@
 {
   "Rules": [
     {
-      "ID": "ExcludeDeltaLog-test",
+      "ID": "ExcludeDeltaLog-test1",
       "Filter": {
-        "Prefix": "data/test/_delta_log/"
-      },
-      "Status": "Enabled",
-      "Expiration": {
-        "Days": 9999
-      }
-    },
-    {
-      "ID": "ExcludeDeltaLog-test2",
-      "Filter": {
-        "Prefix": "data/test2/test2/_delta_log/"
+        "Prefix": "test/test1/_delta_log/"
       },
       "Status": "Enabled",
       "Expiration": {
@@ -23,7 +13,7 @@
     {
       "ID": "Default-Transition-Policy",
       "Filter": {
-        "Prefix": "data"
+        "Prefix": "test"
       },
       "Status": "Enabled",
       "Transitions": [

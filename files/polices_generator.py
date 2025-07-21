@@ -1,15 +1,18 @@
 import json
 
-from files import util
+from files.functions_s3 import get_valid_lifecycle_paths
 
 
-def polices_generator(file_name):
-    data = util.open_config_file(file_name)
+def polices_generator(data):
+    paths = get_valid_lifecycle_paths(data["name"], data["prefix"])
+
+    if not paths or paths == ['']:
+        return
 
     default_rule = {
         "ID": "Default-Transition-Policy",
         "Filter": {
-            "Prefix": "data"
+            "Prefix": data["prefix"]
         },
         "Status": "Enabled",
         "Transitions": [
@@ -27,35 +30,39 @@ def polices_generator(file_name):
         }
     }
 
-    rules = ignore_delta_log(data)
+    rules = ignore_delta_log(paths)
 
     rules.append(default_rule)
 
     lifecycle_config = {
         "Rules": rules
     }
-    save_file(lifecycle_config, file_name)
+    save_file(lifecycle_config, data["name"])
+
+def get_custom_folder_name(s3_path: str) -> str:
+    parts = s3_path.replace("s3://", "", 1).split("/")
+    return "-".join(parts[1:])
 
 
-def ignore_delta_log(data):
+def ignore_delta_log(paths):
     rules = []
 
-    for path in filter(None, data["paths"]):
-            last_folder = path.strip("/").split("/")[-1]
-            rules.append({
-                "ID": f"ExcludeDeltaLog-{last_folder}",
-                "Filter": {
-                    "Prefix": f"{path.rstrip('/')}/_delta_log/"
-                },
-                "Status": "Enabled",
-                "Expiration": {
-                    "Days": 9999
-                }
-            })
+    for path in filter(None, paths):
+        last_folder = get_custom_folder_name(path)
+        rules.append({
+            "ID": f"ExcludeDeltaLog-{last_folder}",
+            "Filter": {
+                "Prefix": f"{path}/_delta_log/"
+            },
+            "Status": "Enabled",
+            "Expiration": {
+                "Days": 9999
+            }
+        })
 
     return rules
 
 
 def save_file(lifecycle_config, file_name):
-    with open(f"output/rules/{file_name.replace('_config', '_lifecycle')}", "w") as f:
+    with open(f"output/rules/{file_name}.json", "w") as f:
         json.dump(lifecycle_config, f, indent=2)

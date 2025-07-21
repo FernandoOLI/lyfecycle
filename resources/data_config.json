@@ -1,13 +1,22 @@
-{
-  "bucket_name": "lyfecycle-management-bucket",
-  "days_to_glacier": 100,
-  "days_to_deep_archive": 200,
-  "days_to_expiration": 299,
-  "paths": [
-    "data/test/",
-    "data/test2/test2"
-  ],
-  "paths_to_ignore": [
-    "test"
-  ]
-}
+[
+  {
+    "name": "lyfecycle-management-bucket",
+    "prefix": "data",
+    "days_to_glacier": 100,
+    "days_to_deep_archive": 200,
+    "days_to_expiration": 299,
+    "paths_to_ignore": [
+      "test"
+    ]
+  },
+  {
+    "name": "lyfecycle-management-bucket-test",
+    "prefix": "test",
+    "days_to_glacier": 100,
+    "days_to_deep_archive": 200,
+    "days_to_expiration": 299,
+    "paths_to_ignore": [
+      "test"
+    ]
+  }
+]

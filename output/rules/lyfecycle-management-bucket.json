@@ -1,0 +1,44 @@
+{
+  "Rules": [
+    {
+      "ID": "ExcludeDeltaLog-test",
+      "Filter": {
+        "Prefix": "data/test/_delta_log/"
+      },
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 9999
+      }
+    },
+    {
+      "ID": "ExcludeDeltaLog-test2-test2",
+      "Filter": {
+        "Prefix": "data/test2/test2/_delta_log/"
+      },
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 9999
+      }
+    },
+    {
+      "ID": "Default-Transition-Policy",
+      "Filter": {
+        "Prefix": "data"
+      },
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 100,
+          "StorageClass": "GLACIER"
+        },
+        {
+          "Days": 200,
+          "StorageClass": "DEEP_ARCHIVE"
+        }
+      ],
+      "Expiration": {
+        "Days": 299
+      }
+    }
+  ]
+}
