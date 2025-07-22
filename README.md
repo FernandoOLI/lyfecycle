@@ -76,6 +76,17 @@ Edit `resources/data_config.json` to define which buckets, prefixes, and lifecyc
 - **days_to_expiration**: Days before permanent deletion
 - **paths_to_ignore**: Folder paths to exclude from lifecycle actions
 
+### Required Environment Variables (GitHub Actions Secrets and Local)
+
+For the CI/CD pipeline to work, you must configure the following secrets in your GitHub repository:
+
+| Secret                  | Description                                                             | How to create                                                                                                                                                    |
+|-------------------------|-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `AWS_ACCESS_KEY_ID`     | Your AWS access key (if you’re storing build artifacts like JARs in S3) | Go to AWS Console → IAM → Create a new User → Enable **Programmatic Access** → Attach necessary policies (e.g., AmazonS3FullAccess) → Copy the **Access Key ID** |
+| `AWS_SECRET_ACCESS_KEY` | Your AWS secret key                                                     | During the same IAM user creation process → Copy the **Secret Access Key**                                                                                       |
+| `AWS_REGION`            | The region where your aws account is located                            | Go to the AWS console and you will see a drop down menu near the top right                                                                                       |
+
+
 ---
 
 ## 🚀 Usage
