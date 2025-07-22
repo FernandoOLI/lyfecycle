@@ -38,26 +38,6 @@ The main components are orchestrated from a single configuration file, ensuring 
 
 The following diagram illustrates the major components and their interactions:
 
-```mermaid
-graph TD
-  Main["main.py"]
-  Orchestrator["files/orchestrator.py"]
-  DataConfig["resources/data_config.json"]
-  PolGen["files/polices_generator.py"]
-  FunctionsS3["files/functions_s3.py"]
-  BashGen["files/bash_generate.py"]
-  OutputRules["output/rules/*.json"]
-  LifecycleSh["output/bash/lifecycle.sh"]
-
-  Main --> Orchestrator
-  Orchestrator --> FunctionsS3
-  FunctionsS3 --> PolGen
-  PolGen --> OutputRules
-  PolGen --> BashGen
-  OutputRules --> BashGen
-  BashGen --> LifecycleSh
-```
-
 ### Data Flow
 
 ```mermaid
