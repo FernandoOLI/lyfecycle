@@ -50,12 +50,11 @@ graph TD
   LifecycleSh["output/bash/lifecycle.sh"]
 
   Main --> Orchestrator
-  Orchestrator --> DataConfig
-  Orchestrator --> PolGen
-  PolGen --> FunctionsS3
+  Orchestrator --> FunctionsS3
+  FunctionsS3 --> PolGen
   PolGen --> OutputRules
-  Orchestrator --> BashGen
-  BashGen --> OutputRules
+  PolGen --> BashGen
+  OutputRules --> BashGen
   BashGen --> LifecycleSh
 ```
 
@@ -64,13 +63,11 @@ graph TD
 ```mermaid
 flowchart LR
   A["data_config.json"] --> B["Orchestrator (run)"]
-  B --> C["Policy Generator"]
-  C --> D["S3 Inspection (functions_s3.py)"]
-  C --> E["Lifecycle JSON Generation"]
-  E --> F["output/rules/*.json"]
-  B --> G["Bash Generator"]
-  G --> F
-  G --> H["output/bash/lifecycle.sh"]
+  B --> C["S3 Inspection (functions_s3.py)"]
+  C --> D["Policy Generator"]
+  D --> E["output/rules/*.json"]
+  D --> F["Bash Generator"]
+  F --> G["output/bash/lifecycle.sh"]
 ```
 
 ---
